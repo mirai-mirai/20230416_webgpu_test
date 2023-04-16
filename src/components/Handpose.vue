@@ -88,6 +88,7 @@ onMounted(async () => {
 
     if (!videoTag.paused) setTimeout(loop, 10);
   }
+  loop();
 
   videoTag.onplay = () => {
     [vw, vh] = [videoTag.videoWidth, videoTag.videoHeight];
