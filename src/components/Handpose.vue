@@ -16,7 +16,7 @@ const stats = new Stats();
 
 const l = (m: any) => { console.log(m) }
 
-const fingerLookupIndices = {
+const fingerIndices = {
   thumb: [0, 1, 2, 3, 4],
   indexFinger: [0, 5, 6, 7, 8],
   middleFinger: [0, 9, 10, 11, 12],
@@ -28,13 +28,12 @@ function drawKeypoints(keypoints: any) {
   for (let i = 0; i < keypoints.length; i++) {
     const y = keypoints[i][0];
     const x = keypoints[i][1];
-    ctx!.fillRect(x - 2, y - 2, 4, 4);
+    ctx!.fillRect(y - 2, x - 2, 4, 4);
   }
 
-  const fingers = Object.keys(fingerLookupIndices);
+  const fingers = Object.keys(fingerIndices);
   for (let i = 0; i < fingers.length; i++) {
-    const finger: string = fingers[i];
-    const points = fingerLookupIndices[finger].map((idx: number) => keypoints[idx]);
+    const points = fingerIndices[fingers[i] as keyof typeof fingerIndices].map((idx: number) => keypoints[idx]);
     drawPath(points, false);
   }
 }
@@ -62,9 +61,9 @@ onMounted(async () => {
 
   stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
   document.body.appendChild(stats.dom)
-  stats.domElement.style.position = 'absolute'
-  stats.domElement.style.top = '0px'
-  stats.domElement.style.left = '100px'
+  stats.dom.style.position = 'absolute'
+  stats.dom.style.top = '0px'
+  stats.dom.style.left = '100px'
 
   videoTag = videoRef.value;
   canvasTag = canvasRef.value;
@@ -84,7 +83,7 @@ onMounted(async () => {
     if (predictions.length > 0) {
       const result = predictions[0].landmarks;
       ctx?.clearRect(0, 0, vw, vh);
-      drawKeypoints(result, predictions[0].annotations);
+      drawKeypoints(result);
     }
 
     if (!videoTag.paused) setTimeout(loop, 10);
