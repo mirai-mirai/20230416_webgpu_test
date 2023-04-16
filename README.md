@@ -1,4 +1,4 @@
-# WebGPUの実験
+# Vue 3 + TypeScript + Vite
 
 tensorflow.jsの処理速度がバックエンドによってどれくらい異なるか実験する
 
