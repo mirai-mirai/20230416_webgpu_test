@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import Handpose from './components/Handpose.vue'
+import Matrix from './components/Matrix.vue'
 </script>
 
 <template>
-  <Handpose></Handpose>
+  <Matrix />
 </template>
 
-<style scoped></style>
